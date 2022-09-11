@@ -25,9 +25,13 @@ const loginDetailsSchema=new mongoose.Schema({
         }
     },
     mobile_number:{
-        type:Number,
+        type:String,
         required:true
     },
+    emailIsVerified:{
+        type:Boolean,
+        default:false
+    }
    
 
     
