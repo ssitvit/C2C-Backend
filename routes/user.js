@@ -91,7 +91,7 @@ router.get('/logout',authorization,(req,res,next)=>{
     .status(200)
     .json({success:true, data:{data:"Successfully logged out"}} );
 })
-// router.get('/checkauth',authorization,(req,res,next)=>{
-//     res.send("auth is working")
-// })
+router.get('/checkauth',authorization,(req,res,next)=>{
+    res.status(200)
+})
 module.exports = router;
