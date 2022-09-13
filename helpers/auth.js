@@ -1,22 +1,43 @@
 const jwt = require("jsonwebtoken");
 const authorization = async (req, res, next) => {
   const token = req.cookies.token;
+  const payload = req.cookies.payload;
+  const header = req.cookies.header;
 
-  if (!token) {
-    return res.sendStatus(403).send({
+  if (token == undefined || payload == undefined || header == undefined) {
+    return res.status(403).send({
       success: false,
       data: {
         error: "Unauthorized",
       },
     });
   }
+  // const accessToken=token+'.'+payload+'.'+signature;
+  const accessToken = header + "." + payload + "." + token;
 
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    jwt.verify(accessToken, process.env.JWT_SECRET_KEY, (error, data) => {
+      if (error) return res.status(403).send({
+        success: false,
+        data: {
+          error: error,
+        },
+      });
 
-    return next();
+      if(data){
+        // console.log(data)
+        return next();
+      }
+      
+      
+    });
   } catch {
-    return res.sendStatus(403);
+    res.sendStatus(403).send({
+      success: false,
+      data: {
+        error: "Error",
+      },
+    });
   }
 };
 

@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 
 const loginDetailsSchema=new mongoose.Schema({
+   
     registration_number:{
         type:String,
         required:true,
