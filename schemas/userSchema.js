@@ -33,7 +33,15 @@ const loginDetailsSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     }
-   
+   ,
+   refreal:{
+    type:Number,
+   },
+   universityName:{
+    type:String,
+    required:true
+   }
+
 
     
 })
