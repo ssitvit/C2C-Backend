@@ -30,8 +30,11 @@ router.post("/signup", async (req, res) => {
         mobile_number: req.body.mobile_number,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        universityName:req.body.universityName,
-        refreal:req.body.refreal=='' || req.body.refreal==undefined  ? "" : req.body.refreal
+        universityName: req.body.universityName,
+        refreal:
+          req.body.refreal == "" || req.body.refreal == undefined
+            ? ""
+            : req.body.refreal,
       });
       const user = await newUser.save();
       await sendVerifyEmail(user);
@@ -118,26 +121,37 @@ const sendVerifyEmail = async (user) => {
 router.get("/verify/:id/:token", async (req, res) => {
   try {
     const user = await LoginData.findOne({ _id: req.params.id });
-    if (!user) return res.status(400).send({success:false,data:{
-      error:"Invalid link"
-    }});
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        data: {
+          error: "Invalid link",
+        },
+      });
 
     const token = await Token.findOne({
       userId: user._id,
       token: req.params.token,
     });
-    if (!token) return res.status(400).send({success:false,data:{
-      error:"Invalid link"
-    }});
+    if (!token)
+      return res.status(400).send({
+        success: false,
+        data: {
+          error: "Invalid link",
+        },
+      });
 
     let userdata = await LoginData.findOne({ _id: user._id });
     userdata.emailIsVerified = true;
     await userdata.save();
     await Token.findByIdAndRemove(token._id);
 
-    res.status(200).send({success:true,data:{
-      data:"Email Verified Successfully"
-    }});
+    res.status(200).send({
+      success: true,
+      data: {
+        data: "Email Verified Successfully",
+      },
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -210,6 +224,8 @@ router.post("/login", async (req, res) => {
 router.get("/logout", authorization, (req, res, next) => {
   res
     .clearCookie("token")
+    .clearCookie("payload")
+    .clearCookie("header")
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
 });
@@ -220,10 +236,10 @@ router.get("/checkauth", authorization, async (req, res, next) => {
   const accessToken = header + "." + payload + "." + token;
 
   const data = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
-  
+
   try {
     let user = await LoginData.findOne({ _id: data.userDetails });
-    user.password=''
+    user.password = "";
     return res.status(200).send({
       success: true,
       data: {
