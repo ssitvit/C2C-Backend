@@ -40,7 +40,19 @@ const loginDetailsSchema=new mongoose.Schema({
    universityName:{
     type:String,
     required:true
-   }
+   },
+   round1:{
+    type:Boolean,
+    default:true
+   },
+   round2:{
+    type:Boolean,
+    default:false
+   },
+   round3:{
+    type:Boolean,
+    default:false
+   },
 
 
     

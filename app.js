@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const router = express.Router();
 const mongoose = require("mongoose");
-const user=require('./routes/user')
+const user=require('./routes/user');
+const saveData=require('./routes/saveData')
 require('dotenv').config();
 const cookieParser = require("cookie-parser");
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 app.use("/user", user);
+app.use("/save", saveData);
 app.get("/", (req, res) => {
   res.send("app is working");
 });
