@@ -26,7 +26,7 @@ const corsOptions = {
   origin: "*",
   credentials: true,
   exposedHeaders:['Set-cookie'],
-  
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 };
 // app.use(
 //   session({

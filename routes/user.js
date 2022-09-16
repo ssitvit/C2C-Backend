@@ -206,8 +206,8 @@ router.post("/login", async (req, res) => {
           sameSite: "none",
         });
 
-      res.cookie("header", header, { sameSite: "none" });
-      res.cookie("payload", payload, { sameSite: "none" });
+      res.cookie("header", header, { sameSite: "none",secure: process.env.NODE_ENV === "production", });
+      res.cookie("payload", payload, { sameSite: "none",secure: process.env.NODE_ENV === "production", });
       res.send({
         success: true,
         data: {
