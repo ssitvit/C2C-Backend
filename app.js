@@ -18,7 +18,7 @@ mongoose
   .catch((error) => console.log(error));
 app.use((req, res, next) => {
   res.header({
-    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Credentials": "*",
     
   });
   next();
