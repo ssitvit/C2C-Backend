@@ -25,7 +25,8 @@ app.use((req, res, next) => {
 const corsOptions = {
   origin: "*",
   credentials: true,
-  exposedHeaders:['Set-cookie']
+  exposedHeaders:['Set-cookie'],
+  
 };
 // app.use(
 //   session({

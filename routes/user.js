@@ -198,7 +198,7 @@ router.post("/login", async (req, res) => {
       // console.log(header,payload,signature);
       res
         .status(200)
-        .setHeader("Set-Cookie", [`header=${header}`, `payload=${payload}`])
+        .setHeader("Set-Cookie")
         .cookie("token", signature, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
@@ -206,8 +206,8 @@ router.post("/login", async (req, res) => {
           sameSite: "none",
         });
 
-      // res.cookie("header", header, { sameSite: "none" });
-      // res.cookie("payload", payload, { sameSite: "none" });
+      res.cookie("header", header, { sameSite: "none" });
+      res.cookie("payload", payload, { sameSite: "none" });
       res.send({
         success: true,
         data: {
