@@ -25,7 +25,18 @@ app.use((req, res, next) => {
 const corsOptions = {
   origin: "*",
   credentials: true,
+  exposedHeaders:['Set-cookie']
 };
+// app.use(
+//   session({
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       sameSite: "none",
+//       secure: process.env.NODE_ENV === "production",
+//     },
+//   })
+// );
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
