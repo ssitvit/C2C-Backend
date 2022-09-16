@@ -202,12 +202,20 @@ router.post("/login", async (req, res) => {
         .cookie("token", signature, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-
+          path: "/",
           sameSite: "none",
         });
 
-      res.cookie("header", header, { sameSite: "none",secure: process.env.NODE_ENV === "production", });
-      res.cookie("payload", payload, { sameSite: "none",secure: process.env.NODE_ENV === "production", });
+      res.cookie("header", header, {
+        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+      });
+      res.cookie("payload", payload, {
+        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+      });
       res.send({
         success: true,
         data: {
@@ -228,20 +236,23 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", authorization, (req, res, next) => {
- 
- 
-    res.clearCookie("token",{
-      Secure :true,
-      sameSite:"none"
-   })
-    .clearCookie("payload",{
-      Secure : true,
-      sameSite:"none"
-   })
-    .clearCookie("header",{
-      Secure : true,
-      sameSite:"none"
-   })
+  res
+    .clearCookie("token", {
+      Secure: true,
+      sameSite: "none",
+      path: '/', 
+      httpOnly: true
+    })
+    .clearCookie("payload", {
+      Secure: true,
+      sameSite: "none",
+      path: '/', 
+    })
+    .clearCookie("header", {
+      Secure: true,
+      sameSite: "none",
+      path: '/', 
+    })
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
 });
