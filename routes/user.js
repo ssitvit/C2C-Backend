@@ -198,7 +198,6 @@ router.post("/login", async (req, res) => {
       // console.log(header,payload,signature);
       res
         .status(200)
-        .setHeader("Set-Cookie")
 
         .cookie("token", signature, {
           httpOnly: true,
