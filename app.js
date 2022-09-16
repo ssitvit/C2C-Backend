@@ -25,19 +25,10 @@ app.use((req, res, next) => {
 const corsOptions = {
   origin: "*",
   credentials: true,
-  exposedHeaders:['Set-cookie'],
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+
+  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
 };
-// app.use(
-//   session({
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       sameSite: "none",
-//       secure: process.env.NODE_ENV === "production",
-//     },
-//   })
-// );
+
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
