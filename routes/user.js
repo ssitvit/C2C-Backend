@@ -196,15 +196,18 @@ router.post("/login", async (req, res) => {
       let payload = token.split(".")[1];
       let signature = token.split(".")[2];
       // console.log(header,payload,signature);
-      res.status(200).cookie("token", signature, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+      res
+        .status(200)
+        .setHeader("Set-Cookie", [`header:${header}`, `payload:${payload}`])
+        .cookie("token", signature, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
 
-        sameSite: "none",
-      });
+          sameSite: "none",
+        });
 
-      res.cookie("header", header, { sameSite: "none" });
-      res.cookie("payload", payload, { sameSite: "none" });
+      // res.cookie("header", header, { sameSite: "none" });
+      // res.cookie("payload", payload, { sameSite: "none" });
       res.send({
         success: true,
         data: {
