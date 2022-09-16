@@ -228,10 +228,20 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", authorization, (req, res, next) => {
-  res
-    .clearCookie("token")
-    .clearCookie("payload")
-    .clearCookie("header")
+ 
+ 
+    res.clearCookie("token",{
+      Secure :true,
+      sameSite:"none"
+   })
+    .clearCookie("payload",{
+      Secure : true,
+      sameSite:"none"
+   })
+    .clearCookie("header",{
+      Secure : true,
+      sameSite:"none"
+   })
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
 });
