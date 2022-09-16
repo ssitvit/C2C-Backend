@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 const corsOptions = {
-  origin: "http//localhost:3000",
+  origin: "*",
   credentials: true,
 };
 app.use(bodyParser.json());
