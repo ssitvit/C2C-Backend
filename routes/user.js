@@ -200,11 +200,11 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
 
-        sameSite: "lax",
+        sameSite: "none",
       });
 
-      res.cookie("header", header, { sameSite: "lax" });
-      res.cookie("payload", payload, { sameSite: "lax" });
+      res.cookie("header", header, { sameSite: "none" });
+      res.cookie("payload", payload, { sameSite: "none" });
       res.send({
         success: true,
         data: {
