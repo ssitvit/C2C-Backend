@@ -6,10 +6,23 @@ const authorization = async (req, res, next) => {
 
   if (token == undefined || payload == undefined || header == undefined) {
     return res
-      .status(403)
-      .clearCookie("token")
-      .clearCookie("payload")
-      .clearCookie("header")
+      .status(200)
+      .clearCookie("token", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite:'none',
+        path: '/',
+        httpOnly: true
+      })
+      .clearCookie("payload", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite:"none",
+        path: '/', 
+      })
+      .clearCookie("header", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: '/', 
+      })
       .send({
         success: false,
         data: {
@@ -24,10 +37,23 @@ const authorization = async (req, res, next) => {
     jwt.verify(accessToken, process.env.JWT_SECRET_KEY, (error, data) => {
       if (error)
         return res
-          .status(403)
-          .clearCookie("token")
-          .clearCookie("payload")
-          .clearCookie("header")
+          .status(200)
+          .clearCookie("token", {
+            secure: process.env.NODE_ENV === "production",
+            sameSite:'none',
+            path: '/',
+            httpOnly: true
+          })
+          .clearCookie("payload", {
+            secure: process.env.NODE_ENV === "production",
+            sameSite:"none",
+            path: '/', 
+          })
+          .clearCookie("header", {
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "none",
+            path: '/', 
+          })
           .send({
             success: false,
             data: {
@@ -41,7 +67,7 @@ const authorization = async (req, res, next) => {
       }
     });
   } catch {
-    res.sendStatus(403).send({
+    res.sendStatus(200).send({
       success: false,
       data: {
         error: "Error",
