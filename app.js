@@ -19,11 +19,12 @@ mongoose
 app.use((req, res, next) => {
   res.header({
     "Access-Control-Allow-Credentials": "true",
+    
   });
   next();
 });
 const corsOptions = {
-  origin: "*",
+  origin: "https://code2clone.vercel.app"||"http://localhost:3000/",
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
