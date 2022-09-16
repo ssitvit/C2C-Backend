@@ -199,7 +199,7 @@ router.post("/login", async (req, res) => {
       res
         .status(200)
         .setHeader("Set-Cookie")
-        .setHeader("Access-Control-Allow-Credentials","true")
+
         .cookie("token", signature, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
