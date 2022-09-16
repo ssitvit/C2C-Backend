@@ -238,18 +238,18 @@ router.post("/login", async (req, res) => {
 router.get("/logout", authorization, (req, res, next) => {
   res
     .clearCookie("token", {
-      Secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite:'none',
       path: '/',
       httpOnly: true
     })
     .clearCookie("payload", {
-      Secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite:"none",
       path: '/', 
     })
     .clearCookie("header", {
-      Secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       path: '/', 
     })
