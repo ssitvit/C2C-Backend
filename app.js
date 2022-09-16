@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 const corsOptions = {
-  origin: "",
+  origin: "https://code2clone.vercel.app"||'http://localhost:3000',
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
