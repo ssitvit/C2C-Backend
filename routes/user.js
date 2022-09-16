@@ -199,10 +199,11 @@ router.post("/login", async (req, res) => {
       res.status(200).cookie("token", signature, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
       });
 
-      res.cookie("header", header);
-      res.cookie("payload", payload);
+      res.cookie("header", header, { sameSite: "none" });
+      res.cookie("payload", payload, { sameSite: "none" });
       res.send({
         success: true,
         data: {
