@@ -17,18 +17,20 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((error) => console.log(error));
 app.use((req, res, next) => {
+  
   res.header({
-    "Access-Control-Allow-Credentials": "*",
+    "Access-Control-Allow-Credentials": true,
     
   });
   next();
 });
-const corsOptions = {
+let corsOptions = {
   origin: "https://code2clone.vercel.app"||"http://localhost:3000",
   credentials: true,
-
+  
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
 };
+
 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
