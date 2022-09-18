@@ -61,7 +61,7 @@ router.post("/submit", authorization, async (req, res) => {
   }
 });
 // <-----------------get all data of user from database------------------>
-router.get("/check", authorization, async (req, res) => {
+router.post("/check", authorization, async (req, res) => {
   const token = req.cookies.token;
   const payload = req.cookies.payload;
   const header = req.cookies.header;
