@@ -283,7 +283,7 @@ router.get("/logout", authorization, async (req, res, next) => {
   res
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
-  
+  res.redirect("/login");
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
   const token = req.cookies.token;
