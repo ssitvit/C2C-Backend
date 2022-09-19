@@ -273,15 +273,11 @@ router.get("/logout", authorization, async (req, res, next) => {
       // path: '/',
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     });
-  // req.session.destroy(function(err) {
-  //   // cannot access session here
-  //   if(err){
-  //       res.redirect('/');
-  //   }
-  // })
+
   await user.save();
-  res.redirect("/login")
-    .status(200)
+  res.render("login")
+  // res
+  //   .status(200)
     // .json({ success: true, data: { data: "Successfully logged out" } });
   
 });
