@@ -19,6 +19,6 @@ const saveCode = new mongoose.Schema({
     required: true,
   },
   time: { type: Date, default: Date.now },
-});
+}, { timestamps: true });
 const CodeBase = mongoose.model("Codebase", saveCode);
 module.exports = CodeBase;

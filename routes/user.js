@@ -223,7 +223,7 @@ router.post("/login", async (req, res) => {
         },
       });
     } else {
-      res.status(401).send({
+      res.status(200).send({
         success: false,
         data: {
           error: "Invalid credentials",
@@ -231,7 +231,7 @@ router.post("/login", async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).send({ error: error });
+    res.status(200).send({ error: error });
   }
 });
 

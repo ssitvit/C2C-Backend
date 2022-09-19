@@ -6,6 +6,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const user = require("./routes/user");
 const saveData = require("./routes/saveData");
+const admin=require("./routes/admin")
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
@@ -42,6 +43,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/user", user);
 app.use("/save", saveData);
+app.use("/admin", admin);
 app.get("/", (req, res) => {
   res.send("app is working");
 });

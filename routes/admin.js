@@ -5,24 +5,62 @@ const LoginData = require("../schemas/userSchema");
 const SaveData = require("../schemas/codeDetails");
 const jwt = require("jsonwebtoken");
 const authorization = require("../helpers/auth");
-let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
 
-router.post("/user/login/", adminAuth, async (req, res) => {
-  for (let i = 0; i < adminDb.size; i++) {
-    if (adminDb[i] == req.body.username) {
-      if (req.body.password == "admin@123789#") {
+
+router.post("/user/login/", async (req, res) => {
+    let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
+    if(!req.body.username || !req.body.password){
+        res.status(200).send({
+            success: false,
+            data: {
+              error: "send all the details",
+            },
+          });
+    }
+  for (let i = 0; i < adminDb.length; i++) {
+    
+    if (adminDb[i] === req.body.username) {
+      if (req.body.password == process.env.ADMINPASS) {
         const token = await jwt.sign(
-          { userDetails: "sambhav" },
+          { userDetails: adminDb[i] },
           process.env.JWT_SECRET_KEY,
           {
             expiresIn: "2h",
           }
         );
-        res.status(200).body({ success: true, data: { data: token } });
+        let header = token.split(".")[0];
+        let payload = token.split(".")[1];
+        let signature = token.split(".")[2];
+        res
+          .status(200)
+
+          .cookie("token", signature, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
+            sameSite: "none",
+          });
+
+        res.cookie("header", header, {
+          sameSite: "none",
+          secure: process.env.NODE_ENV === "production",
+          path: "/",
+        });
+        res.cookie("payload", payload, {
+          sameSite: "none",
+          secure: process.env.NODE_ENV === "production",
+          path: "/",
+        });
+       return res.send({
+          success: true,
+          data: {
+            data: "Logged in successfully",
+          },
+        });
       }
     }
   }
-  res.send({
+  res.status(200).send({
     success: false,
     data: {
       error: "admin user does not exist",
@@ -30,8 +68,48 @@ router.post("/user/login/", adminAuth, async (req, res) => {
   });
 });
 
-router.post('/user/getAllSavedCode',adminAuth,async(req,res)=>{
-    
-})
-
+router.post("/user/getAllSavedCode", authorization, async (req, res) => {
+  try {
+    let allsavedcode = await SaveData.find({round:req.body.round});
+    res.status(200).send({
+      success: true,
+      data: {
+        data: allsavedcode,
+      },
+    });
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      data: {
+        error: error,
+      },
+    });
+  }
+});
+router.get("/logout", authorization, async (req, res, next) => {
+    res
+      .clearCookie("token", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: "/",
+        httpOnly: true,
+        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+      })
+      .clearCookie("payload", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: "/",
+        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+      })
+      .clearCookie("header", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: "/",
+        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+      });
+  
+    res
+      .status(200)
+      .json({ success: true, data: { data: "Successfully logged out" } });
+  });
 module.exports = router;

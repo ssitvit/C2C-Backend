@@ -43,7 +43,7 @@ const loginDetailsSchema=new mongoose.Schema({
    },
    round1:{
     type:Boolean,
-    default:true
+    default:false
    },
    round2:{
     type:Boolean,
@@ -58,10 +58,7 @@ const loginDetailsSchema=new mongoose.Schema({
     type:Number,
     default:-1
    },
-   isPresent:{
-    type:Boolean,
-    default:false
-   }
+   
     
 })
 
