@@ -235,7 +235,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/logout", authorization, (req, res, next) => {
+router.get("/logout", authorization, async (req, res, next) => {
+  const token = req.cookies.token;
+  const payload = req.cookies.payload;
+  const header = req.cookies.header;
+  const accessToken = header + "." + payload + "." + token;
+  let user;
+  const data = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+  try {
+    user = await LoginData.findOne({ _id: data.userDetails });
+  } catch (error) {
+    return res.status(200).send({
+      success: false,
+      data: {
+        error: error,
+      },
+    });
+  }
+
   res
     .clearCookie("token", {
       // secure: process.env.NODE_ENV === "production",
@@ -262,10 +279,11 @@ router.get("/logout", authorization, (req, res, next) => {
   //       res.redirect('/');
   //   }
   // })
+  await user.save();
   res
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
-  res.render("login");
+  
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
   const token = req.cookies.token;
