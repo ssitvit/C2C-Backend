@@ -5,6 +5,9 @@ const authorization = require("../helpers/auth");
 const SaveData = require("../schemas/codeDetails");
 const LoginData = require("../schemas/userSchema");
 const jwt = require("jsonwebtoken");
+const returnRound1a = require("../helpers/imagesString");
+const returnRound1b = require("../helpers/imagesString");
+const returnRound2 = require("../helpers/imagesString");
 
 router.post("/submit", authorization, async (req, res) => {
   const token = req.cookies.token;
@@ -141,6 +144,25 @@ router.post("/getsavedCode", authorization, async (req, res) => {
       success: false,
       data: {
         error: error,
+      },
+    });
+  }
+});
+
+router.post("/getimage", authorization, async (req, res) => {
+
+  if (req.body.round == 1) {
+    return res.status(200).send({
+      success: true,
+      data: {
+        data: [returnRound1a(), returnRound1b()],
+      },
+    });
+  } else if (req.body.round == 2) {
+    return res.status(200).send({
+      success: true,
+      data: {
+        data: [returnRound2()],
       },
     });
   }
