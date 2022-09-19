@@ -275,10 +275,10 @@ router.get("/logout", authorization, async (req, res, next) => {
     });
 
   await user.save();
-  res.render("login")
-  // res
-  //   .status(200)
-    // .json({ success: true, data: { data: "Successfully logged out" } });
+ 
+  res
+    .status(200)
+    .json({ success: true, data: { data: "Successfully logged out" } });
   
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
