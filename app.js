@@ -18,27 +18,20 @@ mongoose
   .catch((error) => console.log(error));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", true);
+  // res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Headers", "Authorization");
   res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  // );
 
   next();
 });
 
 let corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? "https://code2clone.vercel.app"
-      : "http://localhost:3000/",
+  origin: "http://localhost:3000/",
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
