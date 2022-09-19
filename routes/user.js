@@ -237,26 +237,32 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", authorization, (req, res, next) => {
   res
-    .cookie("token",'', {
+    .clearCookie("token",'', {
       secure: process.env.NODE_ENV === "production",
       sameSite:'none',
       path: '/',
       httpOnly: true,
       expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
-    .cookie("payload",'', {
+    .clearCookie("payload",'', {
       secure: process.env.NODE_ENV === "production",
       sameSite:"none",
       path: '/',
       expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
     })
-    .cookie("header",'', {
+    .clearCookie("header",'', {
       secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       path: '/', 
       expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
-    .status(200)
+    // req.session.destroy(function(err) {
+    //   // cannot access session here
+    //   if(err){
+    //       res.redirect('/');
+    //   }
+    // })
+   res .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
 });
 router.get("/checkauth", authorization, async (req, res, next) => {

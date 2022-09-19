@@ -17,20 +17,26 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((error) => console.log(error));
 app.use((req, res, next) => {
-  
-  res.header({
-    "Access-Control-Allow-Credentials": true,
-    
-  });
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Expose-Headers", 'Set-Cookie');
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
   next();
 });
 let corsOptions = {
-  origin: "https://code2clone.vercel.app"||"http://localhost:3000",
+  origin: "https://code2clone.vercel.app" || "http://localhost:3000",
   credentials: true,
-  
+
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
 };
-
 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
