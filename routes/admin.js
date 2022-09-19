@@ -4,7 +4,7 @@ const router = express.Router();
 const LoginData = require("../schemas/userSchema");
 const SaveData = require("../schemas/codeDetails");
 const jwt = require("jsonwebtoken");
-const adminAuth = require("../helpers/adminAuth");
+const authorization = require("../helpers/auth");
 let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
 
 router.post("/user/login/", adminAuth, async (req, res) => {

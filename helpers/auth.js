@@ -7,24 +7,24 @@ const authorization = async (req, res, next) => {
   if (token == undefined || payload == undefined || header == undefined) {
     return res
       .status(200)
-      .cookie("token",'', {
+      .clearCookie("token",'', {
         secure: process.env.NODE_ENV === "production",
         sameSite:'none',
         path: '/',
         httpOnly: true,
-        expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+        
       })
-      .cookie("payload",'', {
+      .clearCookie("payload",'', {
         secure: process.env.NODE_ENV === "production",
         sameSite:"none",
         path: '/',
-        expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
+        
       })
-      .cookie("header",'', {
+      .clearCookie("header",'', {
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
         path: '/', 
-        expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+        
       })
       .send({
         success: false,
@@ -41,20 +41,20 @@ const authorization = async (req, res, next) => {
       if (error)
         return res
           .status(200)
-          .cookie("token",'', {
+          .clearCookie("token",'', {
             secure: process.env.NODE_ENV === "production",
             sameSite:'none',
             path: '/',
             httpOnly: true,
             expire:"Thu, 01 Jan 1969 00:00:00 GMT"
           })
-          .cookie("payload",'', {
+          .clearCookie("payload",'', {
             secure: process.env.NODE_ENV === "production",
             sameSite:"none",
             path: '/',
             expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
           })
-          .cookie("header",'', {
+          .clearCookie("header",'', {
             secure: process.env.NODE_ENV === "production",
             sameSite: "none",
             path: '/', 
