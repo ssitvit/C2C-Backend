@@ -57,6 +57,10 @@ const loginDetailsSchema=new mongoose.Schema({
    position:{
     type:Number,
     default:-1
+   },
+   isPresent:{
+    type:Boolean,
+    default:false
    }
     
 })

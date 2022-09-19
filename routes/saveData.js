@@ -88,7 +88,7 @@ router.post("/check", authorization, async (req, res) => {
     });
 
     if (alreadySavedCode.length != 0) {
-      return res.status(400).send({
+      return res.status(200).send({
         success: false,
         data: {
           error: "User code already submitted",
