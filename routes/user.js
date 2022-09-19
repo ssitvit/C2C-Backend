@@ -282,7 +282,7 @@ router.get("/logout", authorization, async (req, res, next) => {
   await user.save();
   res.redirect("/login")
     .status(200)
-    .json({ success: true, data: { data: "Successfully logged out" } });
+    // .json({ success: true, data: { data: "Successfully logged out" } });
   
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
