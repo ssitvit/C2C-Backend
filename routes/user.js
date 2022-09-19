@@ -237,24 +237,24 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", authorization, (req, res, next) => {
   res
-    .clearCookie("token",'', {
+    .clearCookie("token", {
       secure: process.env.NODE_ENV === "production",
       sameSite:'none',
-      path: '/',
-      httpOnly: true,
-      expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+      // path: '/',
+      // httpOnly: true,
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
-    .clearCookie("payload",'', {
+    .clearCookie("payload", {
       secure: process.env.NODE_ENV === "production",
       sameSite:"none",
-      path: '/',
-      expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
+      // path: '/',
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
     })
-    .clearCookie("header",'', {
+    .clearCookie("header", {
       secure: process.env.NODE_ENV === "production",
       sameSite: "none",
-      path: '/', 
-      expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+      // path: '/', 
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
     // req.session.destroy(function(err) {
     //   // cannot access session here
