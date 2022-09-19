@@ -5,9 +5,9 @@ const authorization = require("../helpers/auth");
 const SaveData = require("../schemas/codeDetails");
 const LoginData = require("../schemas/userSchema");
 const jwt = require("jsonwebtoken");
-const returnRound1a = require("../helpers/imagesString");
-const returnRound1b = require("../helpers/imagesString");
-const returnRound2 = require("../helpers/imagesString");
+const {returnRound1a} = require("../helpers/imagesString");
+const {returnRound1b} = require("../helpers/imagesString");
+const {returnRound2} = require("../helpers/imagesString");
 
 router.post("/submit", authorization, async (req, res) => {
   const token = req.cookies.token;
