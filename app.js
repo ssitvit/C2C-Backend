@@ -22,7 +22,7 @@ mongoose
     default: "https://code2clone.vercel.app"
   }
 app.use((req, res, next) => {
-  const origin = cors.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors1.default;
+  const origin = cors1.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors1.default;
   res.header("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Credentials", true);
   // res.setHeader("Access-Control-Allow-Headers", 'Authorization');
