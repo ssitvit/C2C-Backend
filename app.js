@@ -16,13 +16,8 @@ mongoose
   })
   .then(() => console.log("DB connected"))
   .catch((error) => console.log(error));
-let  cors1= {
-    origin: ["https://code2clone.vercel.app","http://localhost:3000"],
-    default: "https://code2clone.vercel.app"
-  }
+  
 app.use((req, res, next) => {
-  const origin = cors1.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors1.default;
-  res.header("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Headers", 'Authorization');
   res.setHeader("Access-Control-Expose-Headers", 'Set-Cookie');
@@ -40,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 let corsOptions = {
-  origin: ["https://code2clone.vercel.app" , "http://localhost:3000"],
+  origin: "https://code2clone.vercel.app" || "http://localhost:3000",
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
