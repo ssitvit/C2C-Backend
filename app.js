@@ -17,9 +17,15 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((error) => console.log(error));
   
+  cors1= {
+    origin: ["http://localhost:3000","https://code2clone.vercel.app"],
+    default: "https://code2clone.vercel.app"
+  }
 app.use((req, res, next) => {
+  const origin = cors.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors1.default;
+  res.header("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Headers", 'Authorization');
+  // res.setHeader("Access-Control-Allow-Headers", 'Authorization');
   res.setHeader("Access-Control-Expose-Headers", 'Set-Cookie');
 
   res.setHeader(
@@ -31,18 +37,18 @@ app.use((req, res, next) => {
     "X-Requested-With,content-type"
   );
 
-  next();
+  return next();
 });
 
-let corsOptions = {
-  origin: "https://code2clone.vercel.app" || "http://localhost:3000",
-  credentials: true,
+// let corsOptions = {
+//   origin: "https://code2clone.vercel.app" || "http://localhost:3000",
+//   credentials: true,
 
-  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-};
+//   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+// };
 
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
+app.use(cors);
 app.use(cookieParser());
 app.use("/user", user);
 app.use("/save", saveData);
