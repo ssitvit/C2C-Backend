@@ -18,7 +18,7 @@ mongoose
   .catch((error) => console.log(error));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Expose-Headers", 'Set-Cookie');
+  res.setHeader("Access-Control-Expose-Headers", 'Authorization');
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
