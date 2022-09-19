@@ -236,50 +236,30 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", authorization, async (req, res, next) => {
-  const token = req.cookies.token;
-  const payload = req.cookies.payload;
-  const header = req.cookies.header;
-  const accessToken = header + "." + payload + "." + token;
-  let user;
-  const data = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
-  try {
-    user = await LoginData.findOne({ _id: data.userDetails });
-  } catch (error) {
-    return res.status(200).send({
-      success: false,
-      data: {
-        error: error,
-      },
-    });
-  }
-
   res
     .clearCookie("token", {
-      // secure: process.env.NODE_ENV === "production",
-      // sameSite: "none",
-      // path: '/',
-      // httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+      httpOnly: true,
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
     .clearCookie("payload", {
-      // secure: process.env.NODE_ENV === "production",
-      // sameSite: "none",
-      // path: '/',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
     .clearCookie("header", {
-      // secure: process.env.NODE_ENV === "production",
-      // sameSite: "none",
-      // path: '/',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     });
 
-  await user.save();
- 
   res
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
-  
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
   const token = req.cookies.token;
