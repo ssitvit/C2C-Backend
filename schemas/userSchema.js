@@ -54,7 +54,10 @@ const loginDetailsSchema=new mongoose.Schema({
     default:false
    },
 
-
+   position:{
+    type:Number,
+    default:-1
+   }
     
 })
 
