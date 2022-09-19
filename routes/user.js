@@ -238,32 +238,34 @@ router.post("/login", async (req, res) => {
 router.get("/logout", authorization, (req, res, next) => {
   res
     .clearCookie("token", {
-      secure: process.env.NODE_ENV === "production",
-      sameSite:'none',
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: "none",
       // path: '/',
       // httpOnly: true,
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
     .clearCookie("payload", {
-      secure: process.env.NODE_ENV === "production",
-      sameSite:"none",
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: "none",
       // path: '/',
-      // expire:"Thu, 01 Jan 1969 00:00:00 GMT" 
-    })
-    .clearCookie("header", {
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      // path: '/', 
       // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
     })
-    // req.session.destroy(function(err) {
-    //   // cannot access session here
-    //   if(err){
-    //       res.redirect('/');
-    //   }
-    // })
-   res .status(200)
+    .clearCookie("header", {
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: "none",
+      // path: '/',
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+    });
+  // req.session.destroy(function(err) {
+  //   // cannot access session here
+  //   if(err){
+  //       res.redirect('/');
+  //   }
+  // })
+  res
+    .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
+  res.render("login");
 });
 router.get("/checkauth", authorization, async (req, res, next) => {
   const token = req.cookies.token;

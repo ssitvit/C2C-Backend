@@ -72,11 +72,11 @@ const authorization = async (req, res, next) => {
         return next();
       }
     });
-  } catch {
+  } catch(error) {
     res.sendStatus(200).send({
       success: false,
       data: {
-        error: "Error",
+        error: error,
       },
     });
   }

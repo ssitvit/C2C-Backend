@@ -1,23 +1,24 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const LoginData = require("../schemas/userSchema");
+const SaveData = require("../schemas/codeDetails");
 const jwt = require("jsonwebtoken");
+const adminAuth = require("../helpers/adminAuth");
+let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
 
-let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aaditya"];
-router.post("/user/login/", async (req, res) => {
+router.post("/user/login/", adminAuth, async (req, res) => {
   for (let i = 0; i < adminDb.size; i++) {
     if (adminDb[i] == req.body.username) {
       if (req.body.password == "admin@123789#") {
         const token = await jwt.sign(
-          { userDetails: userData._id },
+          { userDetails: "sambhav" },
           process.env.JWT_SECRET_KEY,
           {
             expiresIn: "2h",
           }
         );
-        
-        
+        res.status(200).body({ success: true, data: { data: token } });
       }
     }
   }
@@ -28,5 +29,9 @@ router.post("/user/login/", async (req, res) => {
     },
   });
 });
+
+router.post('/user/getAllSavedCode',adminAuth,async(req,res)=>{
+    
+})
 
 module.exports = router;
