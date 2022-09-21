@@ -6,19 +6,17 @@ const SaveData = require("../schemas/codeDetails");
 const jwt = require("jsonwebtoken");
 const authorization = require("../helpers/adminAuth");
 
-
 router.post("/user/login/", async (req, res) => {
-    let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
-    if(!req.body.username || !req.body.password){
-       return res.status(200).send({
-            success: false,
-            data: {
-              error: "send all the details",
-            },
-          });
-    }
+  let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
+  if (!req.body.username || !req.body.password) {
+    return res.status(200).send({
+      success: false,
+      data: {
+        error: "send all the details",
+      },
+    });
+  }
   for (let i = 0; i < adminDb.length; i++) {
-    
     if (adminDb[i] === req.body.username) {
       if (req.body.password == process.env.ADMINPASS) {
         const token = await jwt.sign(
@@ -31,15 +29,12 @@ router.post("/user/login/", async (req, res) => {
         let header1 = token.split(".")[0];
         let payload1 = token.split(".")[1];
         let signature1 = token.split(".")[2];
-        res
-          .status(200)
-
-          .cookie("token1", signature1, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            path: "/",
-            sameSite: "none",
-          });
+        res.cookie("token1", signature1, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          path: "/",
+          sameSite: "none",
+        });
 
         res.cookie("header1", header1, {
           sameSite: "none",
@@ -51,7 +46,7 @@ router.post("/user/login/", async (req, res) => {
           secure: process.env.NODE_ENV === "production",
           path: "/",
         });
-       return res.send({
+        return res.status(200).send({
           success: true,
           data: {
             data: "Logged in successfully",
@@ -70,7 +65,7 @@ router.post("/user/login/", async (req, res) => {
 
 router.post("/user/getAllSavedCode", authorization, async (req, res) => {
   try {
-    let allsavedcode = await SaveData.find({round:req.body.round});
+    let allsavedcode = await SaveData.find({ round: req.body.round });
     res.status(200).send({
       success: true,
       data: {
@@ -87,29 +82,29 @@ router.post("/user/getAllSavedCode", authorization, async (req, res) => {
   }
 });
 router.get("/logout", authorization, async (req, res, next) => {
-    res
-      .clearCookie("token1", {
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        path: "/",
-        httpOnly: true,
-        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
-      })
-      .clearCookie("payload1", {
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        path: "/",
-        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
-      })
-      .clearCookie("header1", {
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        path: "/",
-        // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
-      });
-  
-    res
-      .status(200)
-      .json({ success: true, data: { data: "Successfully logged out" } });
-  });
+  res
+    .clearCookie("token1", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+      httpOnly: true,
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+    })
+    .clearCookie("payload1", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+    })
+    .clearCookie("header1", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+      // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
+    });
+
+  res
+    .status(200)
+    .json({ success: true, data: { data: "Successfully logged out" } });
+});
 module.exports = router;
