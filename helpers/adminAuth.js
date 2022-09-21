@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const authorization = async (req, res, next) => {
-  const token = req.cookies.token;
-  const payload = req.cookies.payload;
-  const header = req.cookies.header;
+  const token1 = req.cookies.token1;
+  const payload1 = req.cookies.payload1;
+  const header1 = req.cookies.header1;
 
   if (token1 == undefined || payload1 == undefined || header1 == undefined) {
     return res
@@ -34,7 +34,7 @@ const authorization = async (req, res, next) => {
       });
   }
   // const accessToken=token+'.'+payload+'.'+signature;
-  const accessToken = header + "." + payload + "." + token;
+  const accessToken = header1 + "." + payload1 + "." + token1;
 
   try {
     jwt.verify(accessToken, process.env.JWT_SECRET_KEY, (error, data) => {
