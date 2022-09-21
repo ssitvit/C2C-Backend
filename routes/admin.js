@@ -10,7 +10,7 @@ const authorization = require("../helpers/adminAuth");
 router.post("/user/login/", async (req, res) => {
     let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
     if(!req.body.username || !req.body.password){
-        res.status(200).send({
+       return res.status(200).send({
             success: false,
             data: {
               error: "send all the details",
