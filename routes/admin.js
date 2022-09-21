@@ -4,7 +4,7 @@ const router = express.Router();
 const LoginData = require("../schemas/userSchema");
 const SaveData = require("../schemas/codeDetails");
 const jwt = require("jsonwebtoken");
-const authorization = require("../helpers/auth");
+const authorization = require("../helpers/adminAuth");
 
 
 router.post("/user/login/", async (req, res) => {
@@ -28,25 +28,25 @@ router.post("/user/login/", async (req, res) => {
             expiresIn: "2h",
           }
         );
-        let header = token.split(".")[0];
-        let payload = token.split(".")[1];
-        let signature = token.split(".")[2];
+        let header1 = token.split(".")[0];
+        let payload1 = token.split(".")[1];
+        let signature1 = token.split(".")[2];
         res
           .status(200)
 
-          .cookie("token", signature, {
+          .cookie("token1", signature1, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             path: "/",
             sameSite: "none",
           });
 
-        res.cookie("header", header, {
+        res.cookie("header1", header1, {
           sameSite: "none",
           secure: process.env.NODE_ENV === "production",
           path: "/",
         });
-        res.cookie("payload", payload, {
+        res.cookie("payload1", payload1, {
           sameSite: "none",
           secure: process.env.NODE_ENV === "production",
           path: "/",
@@ -88,20 +88,20 @@ router.post("/user/getAllSavedCode", authorization, async (req, res) => {
 });
 router.get("/logout", authorization, async (req, res, next) => {
     res
-      .clearCookie("token", {
+      .clearCookie("token1", {
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
         path: "/",
         httpOnly: true,
         // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
       })
-      .clearCookie("payload", {
+      .clearCookie("payload1", {
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
         path: "/",
         // expire:"Thu, 01 Jan 1969 00:00:00 GMT"
       })
-      .clearCookie("header", {
+      .clearCookie("header1", {
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
         path: "/",
