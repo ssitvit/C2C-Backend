@@ -223,4 +223,18 @@ router.post("/setroundpresent", authorization, async (req, res) => {
     });
   }
 });
+router.post("/checkauth", authorization, async (req, res, next) => {
+ 
+  const token = req.cookies.token1;
+  const payload = req.cookies.payload1;
+  const header = req.cookies.header1;
+  const accessToken = header + "." + payload + "." + token;
+
+  const data = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+
+  if(data) return res.status(200).send({success:true,data:{
+    data:data
+  }})
+  
+});
 module.exports = router;
