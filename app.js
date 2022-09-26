@@ -10,8 +10,6 @@ const admin=require("./routes/admin")
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
-
-
 mongoose
   .connect(process.env.MONGO_DB_URL, {
     useNewUrlParser: true,
