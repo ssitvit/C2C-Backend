@@ -286,4 +286,38 @@ router.get("/checkauth", authorization, async (req, res, next) => {
     });
   }
 });
+
+//<-------------------------------- get sorted score for all user ---------------------------->
+router.post("/getScoreSort", authorization, async (req, res) => {
+  if (!req.body.round)
+    return res
+      .status(200)
+      .send({ success: false, data: { error: "round not specified" } });
+  try {
+    let data;
+    if (req.body.round == 1) {
+      data = await LoginData.find({ round1: true }).sort({
+        round1Score: -1,
+      });
+    } else if (req.body.round == 2) {
+      data = await LoginData.find({ round2: true }).sort({
+        round2Score: -1,
+      });
+    } else if (req.body.round == 3) {
+      data = await LoginData.find({ round3: true }).sort({
+        round3Score: -1,
+      });
+    }
+    
+    if (data)
+      return res.status(200).send({ success: true, data: { data: data } });
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      data: {
+        error: error,
+      },
+    });
+  }
+});
 module.exports = router;
