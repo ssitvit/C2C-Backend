@@ -297,7 +297,7 @@ router.post("/getScoreSort", authorization, async (req, res) => {
     let data;
     if (req.body.round == 1) {
       data = await LoginData.find({ round1: true }).sort({
-        round1Score: -1,
+        round11Score: -1,round12Score:-1
       });
     } else if (req.body.round == 2) {
       data = await LoginData.find({ round2: true }).sort({

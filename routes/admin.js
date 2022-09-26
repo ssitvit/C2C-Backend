@@ -137,7 +137,7 @@ router.post("/score", authorization, async (req, res) => {
   try {
     let userData = await LoginData.findById(req.body.userDetails);
     userData[`round${req.body.round}Score`] = req.body.score;
-
+   
     await userData.save();
     return res
       .status(200)
@@ -159,15 +159,12 @@ router.post("/getScoreSort", authorization, async (req, res) => {
       .send({ success: false, data: { error: "round not specified" } });
   try {
     let data;
-    if (req.body.round == 10) {
+    if (req.body.round == 1) {
       data = await LoginData.find({ round1: true }).sort({
-        round10Score: -1,
+        round11Score: -1,round12Score:-1
       });
-    } else if (req.body.round == 11) {
-      data = await LoginData.find({ round1: true }).sort({
-        round11Score: -1,
-      });
-    } else if (req.body.round == 2) {
+    }
+     else if (req.body.round == 2) {
       data = await LoginData.find({ round2: true }).sort({
         round2Score: -1,
       });
@@ -176,7 +173,7 @@ router.post("/getScoreSort", authorization, async (req, res) => {
         round3Score: -1,
       });
     }
-
+    
     if (data)
       return res.status(200).send({ success: true, data: { data: data } });
   } catch (error) {
@@ -190,8 +187,8 @@ router.post("/getScoreSort", authorization, async (req, res) => {
 });
 
 router.post("/setroundpresent", authorization, async (req, res) => {
-  console.log(req.body);
-  if (!req.body.round) {
+  console.log(req.body)
+  if ( !req.body.round) {
     return res.status(200).send({
       success: false,
       data: { error: "round not specified or userdetails not specified" },
@@ -199,24 +196,25 @@ router.post("/setroundpresent", authorization, async (req, res) => {
   }
   try {
     let userData = await LoginData.findById(req.body.userDetails);
-
-    if (req.body.roundno == 1) {
+    
+    if(req.body.roundno==1){
       userData.round1 = req.body.round;
-    } else if (req.body.roundno == 2) {
+    }else if(req.body.roundno==2){
       userData.round2 = req.body.round;
-    } else if (req.body.roundno == 3) {
+    }else if(req.body.roundno==3){
       userData.round3 = req.body.round;
     }
-
-    let data = await userData.save();
-    if (data) {
-      res.status(200).send({
-        success: true,
-        data: {
-          data: "user attendence updated",
-        },
-      });
-    }
+  
+  let data= await userData.save();
+  if(data){
+    res.status(200).send({
+      success: true,
+      data: {
+        data: "user attendence updated"
+      },
+    });
+  }
+    
   } catch (error) {
     res.status(200).send({
       success: false,
@@ -227,6 +225,7 @@ router.post("/setroundpresent", authorization, async (req, res) => {
   }
 });
 router.post("/checkauth", authorization, async (req, res, next) => {
+ 
   const token = req.cookies.token1;
   const payload = req.cookies.payload1;
   const header = req.cookies.header1;
@@ -234,24 +233,18 @@ router.post("/checkauth", authorization, async (req, res, next) => {
 
   const data = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
 
-  if (data)
-    return res.status(200).send({
-      success: true,
-      data: {
-        data: data,
-      },
-    });
+  if(data) return res.status(200).send({success:true,data:{
+    data:data
+  }})
+  
 });
-router.get("/getAllUsersData", authorization, async (req, res) => {
+router.get('/getAllUsersData',authorization,async(req,res)=>{
   try {
-    const data = await LoginData.find();
-    if (data) {
-      res.status(200).send({
-        success: true,
-        data: {
-          data: data,
-        },
-      });
+    const data=await LoginData.find()
+    if(data){
+      res.status(200).send({success:true,data:{
+        data:data
+      }})
     }
   } catch (error) {
     res.status(200).send({
@@ -261,5 +254,5 @@ router.get("/getAllUsersData", authorization, async (req, res) => {
       },
     });
   }
-});
+})
 module.exports = router;
