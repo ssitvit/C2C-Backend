@@ -128,7 +128,7 @@ router.get("/logout", authorization, async (req, res, next) => {
     .status(200)
     .json({ success: true, data: { data: "Successfully logged out" } });
 });
-
+// <-----------------------------------updating score for a user by admin -------------------------->
 router.post("/score", authorization, async (req, res) => {
   if (!req.body.userDetails)
     return res

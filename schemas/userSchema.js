@@ -53,7 +53,11 @@ const loginDetailsSchema=new mongoose.Schema({
     type:Boolean,
     default:false
    },
-   round1Score:{
+   round10Score:{
+    type:Number,
+    default:0
+   },
+   round11Score:{
     type:Number,
     default:0
    },
