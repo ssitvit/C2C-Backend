@@ -237,4 +237,21 @@ router.post("/checkauth", authorization, async (req, res, next) => {
   }})
   
 });
+router.get('/getAllUsersData',authorization,async(req,res)=>{
+  try {
+    const data=await LoginData.find()
+    if(data){
+      res.status(200).send({success:true,data:{
+        data:data
+      }})
+    }
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      data: {
+        error: error,
+      },
+    });
+  }
+})
 module.exports = router;
