@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'c2c'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A5F3B3A7E0134E8A993F2398B7FCE647 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B9CCFC18AA084608A526EE717C968695 }}
           package: .
