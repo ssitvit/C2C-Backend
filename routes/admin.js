@@ -238,7 +238,7 @@ router.post("/checkauth", authorization, async (req, res, next) => {
   }})
   
 });
-router.get('/getAllUsersData',async(req,res)=>{
+router.get('/getAllUsersData',authorization,async(req,res)=>{
   try {
     const data=await LoginData.find()
     if(data){
