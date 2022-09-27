@@ -288,7 +288,7 @@ router.get("/checkauth", authorization, async (req, res, next) => {
 });
 
 //<-------------------------------- get sorted score for all user ---------------------------->
-router.post("/getScoreSort",  async (req, res) => {
+router.post("/getScoreSort", authorization, async (req, res) => {
   if (!req.body.round)
     return res
       .status(200)
