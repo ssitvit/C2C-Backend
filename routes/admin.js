@@ -256,4 +256,34 @@ router.get('/getAllUsersData',authorization,async(req,res)=>{
     });
   }
 })
+
+router.post('/setThresold',authorization,async(req,res)=>{
+  if(!req.body.value || !req.body.round) return res.status(200).send({success:false,data:{error:"Value or round not given"}})
+  
+  let data;
+  if(req.body.round==1){
+    data=await LoginData.find({ round1: true })
+  }else if(req.body.round==2 ){
+    data=await LoginData.find({ round2: true })
+  }else if(req.body.round==3 ){
+    data=await LoginData.find({ round3: true })
+  }
+console.log(data)
+  for(var i=0;i<data.length;i++){
+    if(req.body.round==1){
+      if((data[i].round10Score+data[i].round11Score)<req.body.value){
+      await LoginData.findByIdAndUpdate(data[i]._id,{round1:false})
+      }
+    }else if(req.body.round==2 ){
+      if((data[i].round2Score)<req.body.value){
+        await LoginData.findOneAndUpdate({_id:data[i]._id},{round2:false})
+      }
+    }else if(req.body.round==3 ){
+      if((data[i].round3Score)<req.body.value){
+        await LoginData.findOneAndUpdate({_id:data[i]._id},{round3:false})
+      }
+    }
+  }
+res.status(200).send({success:true,data:{data:"All data saved successfully"}})
+})
 module.exports = router;
