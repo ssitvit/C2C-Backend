@@ -167,6 +167,14 @@ router.post("/getimage", authorization, async (req, res) => {
         body:"Clone the given image for round2"
       },
     });
+  }else if(req.body.round == 3){
+    return res.status(200).send({
+      success: true,
+      data: {
+        data: [returnRound2()],
+        body:"Clone the given image for round3"
+      },
+    });
   }
 });
 module.exports = router;
