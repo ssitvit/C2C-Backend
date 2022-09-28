@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 let corsOptions = {
   // origin: "https://code2clone.ieeessitvit.tech",
-  origin:"http://localhost:3000",
+  origin:process.env.ORIGIN,
   credentials: true,
 
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
