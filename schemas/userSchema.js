@@ -77,5 +77,6 @@ const loginDetailsSchema = new mongoose.Schema({
   },
 });
 
+
 const loginData = mongoose.model("participants", loginDetailsSchema);
 module.exports = loginData;
