@@ -156,6 +156,7 @@ router.post("/getimage", authorization, async (req, res) => {
       success: true,
       data: {
         data: [returnRound1a(), returnRound1b()],
+        body:"Clone the given image"
       },
     });
   } else if (req.body.round == 2) {
@@ -163,6 +164,7 @@ router.post("/getimage", authorization, async (req, res) => {
       success: true,
       data: {
         data: [returnRound2()],
+        body:"Clone the given image"
       },
     });
   }
