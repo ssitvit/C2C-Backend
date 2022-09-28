@@ -278,24 +278,25 @@ router.post("/setThresold", authorization, async (req, res) => {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
       if (req.body.round == 1) {
-        if (data[i].round10Score + data[i].round11Score < req.body.value) {
-          await LoginData.findByIdAndUpdate(data[i]._id, { round1: false });
+        if (data[i].round10Score + data[i].round11Score > req.body.value) {
+          await LoginData.findByIdAndUpdate(data[i]._id, { round2: true });
         }
       } else if (req.body.round == 2) {
-        if (data[i].round2Score < req.body.value) {
+        if (data[i].round2Score > req.body.value) {
           await LoginData.findOneAndUpdate(
             { _id: data[i]._id },
-            { round2: false }
-          );
-        }
-      } else if (req.body.round == 3) {
-        if (data[i].round3Score < req.body.value) {
-          await LoginData.findOneAndUpdate(
-            { _id: data[i]._id },
-            { round3: false }
+            { round3: true }
           );
         }
       }
+      //  else if (req.body.round == 3) {
+      //   if (data[i].round3Score < req.body.value) {
+      //     await LoginData.findOneAndUpdate(
+      //       { _id: data[i]._id },
+      //       { round3: false }
+      //     );
+      //   }
+      // }
     }
     res
       .status(200)
