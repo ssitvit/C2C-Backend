@@ -6,7 +6,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const user = require("./routes/user");
 const saveData = require("./routes/saveData");
-const admin=require("./routes/admin")
+const admin = require("./routes/admin");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 let corsOptions = {
-  origin: "https://code2clone.ieeessitvit.tech",
+  origin: "http://localhost:3000",
   // origin:process.env.ORIGIN,
   credentials: true,
 
