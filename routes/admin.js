@@ -188,8 +188,13 @@ router.post("/getScoreSort", authorization, async (req, res) => {
 });
 
 router.post("/setroundpresent", authorization, async (req, res) => {
-  // console.log(req.body);
-  
+  console.log(req.body);
+  if (!req.body.roundno || !req.body.userDetails) {
+    return res.status(200).send({
+      success: false,
+      data: { error: "round not specified or userdetails not specified" },
+    });
+  }
   try {
     let userData = await LoginData.findById(req.body.userDetails);
 
