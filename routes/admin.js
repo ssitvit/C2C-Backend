@@ -8,7 +8,7 @@ const authorization = require("../helpers/adminAuth");
 const bcrypt = require("bcryptjs");
 
 router.post("/user/login/", async (req, res) => {
-  let adminDb = ["sambhav", "devansh", "ganesh", "vishnu", "aditya"];
+  let adminDb = [ "ganesh", "vishnu"];
   if (!req.body.username || !req.body.password) {
     return res.status(200).send({
       success: false,
