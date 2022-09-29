@@ -154,7 +154,7 @@ router.post("/score", authorization, async (req, res) => {
 });
 
 router.post("/getScoreSort", authorization, async (req, res) => {
-  if (!req.body.round)
+  if (!req.body.roundno || ! req.body.userDetails)
     return res
       .status(200)
       .send({ success: false, data: { error: "round not specified" } });
