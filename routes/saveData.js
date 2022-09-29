@@ -5,9 +5,10 @@ const authorization = require("../helpers/auth");
 const SaveData = require("../schemas/codeDetails");
 const LoginData = require("../schemas/userSchema");
 const jwt = require("jsonwebtoken");
-const {returnRound1a} = require("../helpers/imagesString");
-const {returnRound1b} = require("../helpers/imagesString");
-const {returnRound2} = require("../helpers/imagesString");
+const { returnRound1a } = require("../helpers/imagesString");
+const { returnRound1b } = require("../helpers/imagesString");
+const { returnRound2 } = require("../helpers/imagesString");
+const { returnRound3 } = require("../helpers/imagesString");
 
 router.post("/submit", authorization, async (req, res) => {
   const token = req.cookies.token;
@@ -150,14 +151,13 @@ router.post("/getsavedCode", authorization, async (req, res) => {
 });
 
 router.post("/getimage", authorization, async (req, res) => {
-
   if (req.body.round == 1) {
     return res.status(200).send({
       success: true,
       data: {
         data: [returnRound1a(), returnRound1b()],
-        body:"Clone the given image for round1",
-        time:new Date(),
+        body: "Clone the given image for round1",
+        time: new Date(),
       },
     });
   } else if (req.body.round == 2) {
@@ -165,17 +165,17 @@ router.post("/getimage", authorization, async (req, res) => {
       success: true,
       data: {
         data: [returnRound2()],
-        body:"Clone the given image for round2",
-        time:new Date(),
+        body: "Clone the given image for round2",
+        time: new Date(),
       },
     });
-  }else if(req.body.round == 3){
+  } else if (req.body.round == 3) {
     return res.status(200).send({
       success: true,
       data: {
-        data: [returnRound2()],
-        body:"Clone the given image for round3",
-        time:new Date(),
+        data: [returnRound3()],
+        body: "Imitate the following action. Make a 2 X 2 chess board with pieces as shown. The current position is a checkmate for black. On hover you have to make the same board change so that it is black to move and not a checkmate, an example is shown in the other figure. You may use HTML tags like svg, path , defs and g to make the chess pieces.",
+        time: new Date(),
       },
     });
   }
