@@ -30,9 +30,15 @@ app.use((req, res, next) => {
 
   next();
 });
-
+let domains = ["https://code2clone.vercel.app","http://localhost:3000"];
 let corsOptions = {
-  origin: ["https://code2clone.vercel.app","http://localhost:3000"],
+  origin: function(origin,callback){
+    if(domains.indexOf(origin)!==-1){
+      callback(null,true);
+    }else{
+     callback(new Error('Not allowed by CORS'))
+    }
+  },
 //   origin: "https://code2clone.ieeessitvit.tech",
   // origin:"http://localhost:3000",
   credentials: true,
